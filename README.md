@@ -13,6 +13,33 @@
 
 <br>
 
+
+
+Here’s a concise and professional **Production Deployment** section for your `README.md` — tailored for recruiters and developers:
+
+---
+
+## 🚀 Production Deployment
+
+The EBOOK Library web application is fully deployed and accessible online for demonstration:
+
+🔗 **Live URL:** [https://ebook-laravel-final-production.up.railway.app](https://ebook-laravel-final-production.up.railway.app)
+
+The project is deployed using:
+
+* 🖥️ **Backend**: Laravel 9 (PHP 8.1) — deployed on [Railway.app](https://railway.app)
+* 🎨 **Frontend**: Vite, Bootstrap 5, Vue — bundled and built via Vite
+* 🛢️ **Database**: PostgreSQL (hosted on Railway's managed DB instance)
+
+The app is production-ready, HTTPS-secured, and fully functional for user/admin login, book borrowing, and credit features.
+
+---
+
+Would you like a badge-style version too, or is this good as-is?
+
+
+
+
 <h1>Features</h1>
 <h2>User features</h2>
 
