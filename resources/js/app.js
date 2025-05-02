@@ -4,6 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+
+
 import "./bootstrap";
 import { createApp, VueElement } from "vue";
 
