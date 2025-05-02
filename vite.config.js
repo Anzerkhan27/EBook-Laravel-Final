@@ -20,6 +20,16 @@ export default defineConfig({
             },
         }),
     ],
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+        rollupOptions: {
+            input: [
+                'resources/sass/app.scss',
+                'resources/js/app.js',
+            ],
+        },
+    },
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
