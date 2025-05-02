@@ -1,13 +1,2 @@
-// Fonts
-@import url("https://fonts.bunny.net/css?family=Nunito");
-
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-
-$theme-colors: (
-    "primary": #00d96d,
-    "danger": #170e0d,
-);
+// Load Bootstrap 5 styles
+@import 'bootstrap/scss/bootstrap';
