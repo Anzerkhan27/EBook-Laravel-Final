@@ -1,5 +1,5 @@
 [phases.setup]
-nixpkgsArchive = "9c7e9ba44ea38499b6eac9b7d78ed2b6d4200b5a"
+nixpkgsArchive = "c7d8fddf6a978d08bfa541bb0a561cb59e22ce6f" # Known stable version
 
 [phases.install]
 cmds = [
