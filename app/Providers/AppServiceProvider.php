@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;   // ← 1️⃣  add this line
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // 2️⃣  force HTTPS in production so Vite assets load with https://
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
