@@ -21,22 +21,17 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl
+RUN docker-php-ext-install \
+        pdo pdo_pgsql pgsql \
+        mbstring zip exif pcntl
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel source
-COPY . .
+# … composer install / npm build steps …
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Let Railway know which port we’ll use
+EXPOSE 8080
 
-# Install NPM deps and build assets
-RUN npm install && npm run build
-
-# Expose port 8000
-EXPOSE 8000
-
-# Start Laravel
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+# Run migrations, then start Laravel
+CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
