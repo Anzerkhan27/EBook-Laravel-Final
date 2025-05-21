@@ -1,37 +1,32 @@
-# Use the official PHP image with necessary extensions
+# ───────────────────────────────
+# 🌟 Laravel + Node build image
+# ───────────────────────────────
 FROM php:8.1-fpm
 
-# Set working directory
-WORKDIR /var/www
-
-# Install system dependencies
+# ---------- system deps ----------
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg-dev \
-    libpq-dev \
-    libzip-dev \
-    zip \
-    unzip \
-    curl \
-    git \
-    nodejs \
-    npm \
-    libonig-dev \
-    libxml2-dev
+    git unzip curl zip gnupg \
+    libpng-dev libjpeg-dev libpq-dev libzip-dev \
+    libonig-dev libxml2-dev \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && docker-php-ext-install \
+         pdo pdo_mysql pdo_pgsql pgsql \
+         mbstring zip exif pcntl \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions
-RUN docker-php-ext-install \
-        pdo pdo_pgsql pgsql \
-        mbstring zip exif pcntl
-
-# Install Composer
+# ---------- Composer ----------
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# … composer install / npm build steps …
+# ---------- project files ----------
+WORKDIR /var/www
+COPY . .
 
-# Let Railway know which port we’ll use
+# ---------- PHP deps & assets ----------
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+RUN npm install && npm run build
+
+# ---------- runtime ----------
+ENV PORT=8080
 EXPOSE 8080
-
-# Run migrations, then start Laravel
-CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT"]
+CMD ["sh", "-c", "php /var/www/artisan migrate --force && php /var/www/artisan serve --host=0.0.0.0 --port=$PORT"]
